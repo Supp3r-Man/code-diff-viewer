@@ -102,7 +102,7 @@ Caveat about the check itself: under virtual time the page's own 20 second worke
 - Verified in Chrome only (headless, once, as described below). Other browsers are untested, though the page uses only standard APIs (`Worker`, `navigator.clipboard` with an `execCommand` fallback). If copying is refused, the patch is shown in a text box instead.
 - The 20 second worker timeout is implemented but I did not exercise it in a browser, because no input in my check took that long; the size guard returns first.
 - Not deployed anywhere. To publish it, enable GitHub Pages for the repository and serve the repository root.
-- CI not yet confirmed. The workflow (`.github/workflows/ci.yml`) runs `npm test` on Node 20, 22 and 24, but it has not run on GitHub yet.
+- CI: the workflow (`.github/workflows/ci.yml`) runs `npm test` on Node 20, 22 and 24. CI ran green on all three Node versions on the first run on GitHub Actions (ubuntu-latest, 2026-10-20).
 
 ## Clone
 
