@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Diff Viewer</title>
+  <meta name="description" content="Compare two texts in the browser: Myers line diff, word-level highlighting, unified and side-by-side views, and unified patch export. Nothing leaves your browser.">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Code Diff Viewer</h1>
+    <span class="muted">Paste two versions, compare, copy a patch. Everything stays in your browser.</span>
+  </header>
+
+  <main class="page">
+    <section class="inputs" aria-label="Inputs">
+      <div class="pane">
+        <div class="pane-head">
+          <label for="original" class="pane-label">Original <span id="original-count" class="muted count">0 lines</span></label>
+          <button id="open-original" type="button" class="small">Open file…</button>
+          <input id="file-original" type="file" hidden>
+        </div>
+        <textarea id="original" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-head">
+          <label for="changed" class="pane-label">Changed <span id="changed-count" class="muted count">0 lines</span></label>
+          <button id="open-changed" type="button" class="small">Open file…</button>
+          <input id="file-changed" type="file" hidden>
+        </div>
+        <textarea id="changed" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="Controls">
+      <div class="actions">
+        <button id="compare" type="button" class="primary">Compare</button>
+        <button id="swap" type="button">Swap sides</button>
+        <button id="example" type="button">Load example</button>
+        <button id="clear" type="button">Clear</button>
+        <label class="inline"><input id="live" type="checkbox" checked> Live compare <span class="muted">(up to 1500 lines)</span></label>
+      </div>
+      <fieldset class="options">
+        <legend>Options</legend>
+        <label class="inline"><input id="opt-ws" type="checkbox"> Ignore whitespace changes</label>
+        <label class="inline"><input id="opt-trailing" type="checkbox"> Ignore trailing whitespace</label>
+        <label class="inline"><input id="opt-case" type="checkbox"> Ignore case</label>
+        <label class="inline"><input id="opt-eol" type="checkbox"> Normalise CRLF</label>
+        <label class="inline">Highlight inside lines by
+          <select id="opt-inline">
+            <option value="word">word</option>
+            <option value="char">character</option>
+          </select>
+        </label>
+      </fieldset>
+    </section>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section id="result" class="result" aria-label="Result" hidden>
+      <div class="result-bar">
+        <div id="stats" class="stats" role="status" aria-live="polite"></div>
+        <div class="view-controls">
+          <div class="toggle" role="group" aria-label="View">
+            <button id="view-unified" type="button" aria-pressed="true">Unified</button>
+            <button id="view-split" type="button" aria-pressed="false">Side by side</button>
+          </div>
+          <label class="inline">Context lines
+            <input id="context" type="number" min="0" max="999" value="3" inputmode="numeric">
+          </label>
+          <button id="expand-all" type="button">Expand all</button>
+          <button id="copy" type="button">Copy patch</button>
+        </div>
+      </div>
+      <div id="diff" class="diff-wrap"></div>
+      <details id="patch-box" class="patch-box">
+        <summary>Unified patch text</summary>
+        <textarea id="patch-out" readonly spellcheck="false" wrap="off" aria-label="Unified patch text"></textarea>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>The diff runs in your browser and nothing is uploaded. Inputs over 5000 lines ask for confirmation and are compared in a Web Worker with a time limit.</span>
+  </footer>
+
+  <script src="src/diff.js"></script>
+  <script src="src/examples.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

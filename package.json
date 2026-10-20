@@ -1,0 +1,14 @@
+{
+  "name": "code-diff-viewer",
+  "version": "0.1.0",
+  "description": "A dependency-free browser diff viewer: Myers line diff, word-level highlighting, unified and side-by-side views, and unified patch export.",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "start": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
